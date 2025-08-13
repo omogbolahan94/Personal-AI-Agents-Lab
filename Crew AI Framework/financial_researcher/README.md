@@ -4,12 +4,29 @@ Welcome to the FinancialResearcher Crew project, powered by [crewAI](https://cre
 
 ## Installation
 
-Ensure you have Python >=3.10 <3.14 installed on your system. This project uses [UV](https://docs.astral.sh/uv/) for dependency management and package handling, offering a seamless setup and execution experience.
+Ensure Python >=3.10 <3.14 sis installed on your system. This project uses [UV](https://docs.astral.sh/uv/) for dependency management and package handling, offering a seamless setup and execution experience.
 
 First, if you haven't already, install uv:
 
 ```bash
 pip install uv
+```
+
+Create a virtual environment and activate it:
+```bash
+uv venv .venv
+source .venv/Scripts/activate
+```
+
+Run this command in a VS code/Cursor Terminal in the project root directory using UV in order to run the Crew commands:
+```bash
+uv tool install crewai
+```
+
+And in case Crew as been installed before, it might be worth doing this to make sure the latest exist:
+uv tool upgrade crewai
+```bash
+uv tool upgrade crewai
 ```
 
 Next, navigate to your project directory and install the dependencies:
@@ -18,6 +35,7 @@ Next, navigate to your project directory and install the dependencies:
 ```bash
 crewai install
 ```
+
 ### Customizing
 
 **Add your `OPENAI_API_KEY` into the `.env` file**
