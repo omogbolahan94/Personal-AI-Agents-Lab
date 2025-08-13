@@ -29,7 +29,7 @@ crewai install
 
 ## Running the Project
 
-To kickstart your crew of AI agents and begin task execution, run this from the root folder of your project:
+To kickstart the crew of AI agents and begin task execution, run this from debate directory in the root folder of the project:
 
 ```bash
 $ crewai run
