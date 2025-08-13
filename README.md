@@ -24,10 +24,15 @@ Multi-agent workflows built using **[CrewAI](https://docs.crewai.com/)**.
 - **Judge Agent** – evaluates both arguments and decides the winner based solely on the debate content.
 
 #### **b. `financial_researcher/`**
-- A CrewAI project focused on market and financial data research.
-- Gathers, processes, and summarises financial trends and insights.
+- A CrewAI project focused on health, history and current news of a given company.
+- Gathers, processes, and summarises research findings.
 - Uses multi-agent orchestration for research, analysis, and report generation.
 
+#### **c. `stock_picker/`**
+- Financial News Analyst agent that finds and lists trending companies in in a provided sector.
+- Financial researcher that provides list of comprehensive analysis of each trending companies in a report.
+- Picker that picks the best company with potential for investment.
+- Manager who can delegate tasks in order to achieve the goal of picking the best company.
 ---
 
 ## ⚡ Package Management
