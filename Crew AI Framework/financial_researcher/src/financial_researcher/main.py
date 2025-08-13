@@ -24,5 +24,5 @@ def run():
 
     print("\n\nReport has been saved to output/report.md")
 
-if __name__ == "__main__":
-    run()
+# if __name__ == "__main__":
+#     run()
