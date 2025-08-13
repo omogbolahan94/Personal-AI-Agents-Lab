@@ -11,9 +11,7 @@ def run():
     """
     Run the research crew.
     """
-    inputs = {
-        'company': 'Apple'
-    }
+    inputs = {'company': 'Apple'}
 
     # Create and run the crew
     result = ResearchCrew().crew().kickoff(inputs=inputs)
@@ -24,5 +22,6 @@ def run():
 
     print("\n\nReport has been saved to output/report.md")
 
-# if __name__ == "__main__":
-#     run()
+
+if __name__ == "__main__":
+    run()
