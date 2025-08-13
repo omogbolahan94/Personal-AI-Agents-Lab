@@ -15,8 +15,6 @@ AI experiments built with the official **OpenAI Python SDK**.
   - Uses the OpenAI API for text generation.
   - Demonstrates prompt design, context passing, and structured responses.
 
----
-
 ### **2. `CrewAI Framework/`**
 Multi-agent workflows built using **[CrewAI](https://docs.crewai.com/)**.
 
@@ -35,6 +33,13 @@ Multi-agent workflows built using **[CrewAI](https://docs.crewai.com/)**.
 ## ⚡ Package Management
 This repo uses **[`uv`](https://github.com/astral-sh/uv)** for Python environment and dependency management.
 
-### Create a virtual environment
-```bash
-uv venv
+* Insall UV: follow instruction on this https://docs.astral.sh/uv/getting-started/installation/
+* Confirm the version: `uv --version`
+* Create virtual environment: `uv venv .venv`
+* Activate virtual environment (linux): `source .venv/Scripts/activate`
+* On jupyter notebook, the virtual environment is name: Python (myenv). Choose it to use the UV virtual environment on your notebook.
+
+--- 
+
+💡 Notes
+Ensure you set up the necessary API keys (.env file) for OpenAI or other LLM providers. Keep .env in your .gitignore for security. Some CrewAI projects may require multiple LLM agents; check the project-specific README for details.
