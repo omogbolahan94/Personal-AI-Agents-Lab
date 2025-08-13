@@ -1,19 +1,15 @@
 # Debate Crew
 
-Debate Crew project is powered by [crewAI](https://crewai.com). This template is designed to help set up a multi-agent AI system with ease, leveraging the powerful and flexible framework provided by crewAI. The goal is to enable agents to collaborate effectively on complex tasks, maximizing their collective intelligence and capabilities.
+Welcome to the Debate Crew project, powered by [crewAI](https://crewai.com). This template is designed to help you set up a multi-agent AI system with ease, leveraging the powerful and flexible framework provided by crewAI. Our goal is to enable your agents to collaborate effectively on complex tasks, maximizing their collective intelligence and capabilities.
 
 ## Installation
 
-Ensure you have Python >=3.10 <3.13 installed on your system. This project uses [UV](https://docs.astral.sh/uv/) for dependency management and package handling, offering a seamless setup and execution experience.
+Ensure you have Python >=3.10 <3.14 installed on your system. This project uses [UV](https://docs.astral.sh/uv/) for dependency management and package handling, offering a seamless setup and execution experience.
 
-Run this command in a VS code/Cursor Terminal in the project root directory using UV in order to run the Crew commands:
+First, if you haven't already, install uv:
+
 ```bash
-uv tool install crewai
-```
-And in case Crew as been installed before, it might be worth doing this to make sure the latest exist:
-uv tool upgrade crewai
-```bash
-uv tool upgrade crewai
+pip install uv
 ```
 
 Next, navigate to your project directory and install the dependencies:
@@ -22,10 +18,6 @@ Next, navigate to your project directory and install the dependencies:
 ```bash
 crewai install
 ```
-
-### Initialize Debate Crew Project
-* Create the project folder (`debate`): `crewai create crew dabate`
-
 ### Customizing
 
 **Add your `OPENAI_API_KEY` into the `.env` file**
@@ -51,3 +43,12 @@ This example, unmodified, will run the create a `report.md` file with the output
 
 The debate Crew is composed of multiple AI agents, each with unique roles, goals, and tools. These agents collaborate on a series of tasks, defined in `config/tasks.yaml`, leveraging their collective skills to achieve complex objectives. The `config/agents.yaml` file outlines the capabilities and configurations of each agent in your crew.
 
+## Support
+
+For support, questions, or feedback regarding the Debate Crew or crewAI.
+- Visit our [documentation](https://docs.crewai.com)
+- Reach out to us through our [GitHub repository](https://github.com/joaomdmoura/crewai)
+- [Join our Discord](https://discord.com/invite/X4JWnZnxPb)
+- [Chat with our docs](https://chatg.pt/DWjSBZn)
+
+Let's create wonders together with the power and simplicity of crewAI.
