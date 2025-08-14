@@ -32,7 +32,14 @@ Multi-agent workflows built using **[CrewAI](https://docs.crewai.com/)**.
 - Financial News Analyst agent that finds and lists trending companies in in a provided sector.
 - Financial researcher that provides list of comprehensive analysis of each trending companies in a report.
 - Picker that picks the best company with potential for investment.
-- Manager who can delegate tasks in order to achieve the goal of picking the best company.
+- Manager who can delegate tasks in order to achieve the goal of picking the best company using CrewAI hierarchical processing.
+
+#### **d. `coder/`**
+This project is about a python coding assistant that:
+- Plans the logic of the coding challenge
+- Writes a clean and efficient code
+- Test the code 
+
 ---
 
 ## ⚡ Package Management
