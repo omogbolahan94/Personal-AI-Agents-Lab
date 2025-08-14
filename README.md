@@ -16,7 +16,7 @@ AI experiments built with the official **OpenAI Python SDK**.
   - Demonstrates prompt design, context passing, and structured responses.
 
 ### **2. `CrewAI Framework/`**
-Multi-agent workflows built using **[CrewAI](https://docs.crewai.com/)**.
+Multi-agent workflows built using **[CrewAI](https://docs.crewai.com/)**. The following `crew` projects were created inside the `Crew AI Framework` directotry:
 
 #### **a. `debators/`**
 - **Oppose Agent** – argues *against* a given motion.
@@ -38,7 +38,14 @@ Multi-agent workflows built using **[CrewAI](https://docs.crewai.com/)**.
 This project is about a python coding assistant that:
 - Plans the logic of the coding challenge
 - Writes a clean and efficient code
-- Test the code 
+- Test the code on docker in local machine
+
+#### **e. `software_engineering_team/`**
+The project has the following agents:
+- Engineering Lead: for the engineering team, directing the work of the engineer
+- Backend engineer: Python Engineer who can write code to achieve the design described by the engineering lead
+- Frontend engineer: A Gradio expert to who can write a simple frontend to demonstrate a backend
+- Test engineer: An engineer with python coding skills who can write unit tests for the given backend module 
 
 ---
 
