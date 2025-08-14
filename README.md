@@ -41,7 +41,7 @@ This project is about a python coding assistant that:
 - Test the code on docker in local machine
 
 #### **e. `software_engineering_team/`**
-The project has the following agents:
+A trading software with the following agents:
 - Engineering Lead: for the engineering team, directing the work of the engineer
 - Backend engineer: Python Engineer who can write code to achieve the design described by the engineering lead
 - Frontend engineer: A Gradio expert to who can write a simple frontend to demonstrate a backend
