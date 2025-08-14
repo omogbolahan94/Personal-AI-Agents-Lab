@@ -90,5 +90,3 @@ app = gr.TabbedInterface(
 )
 
 app.launch()
-
-# iface.launch()
