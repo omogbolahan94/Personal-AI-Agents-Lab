@@ -18,6 +18,12 @@ Next, navigate to your project directory and install the dependencies:
 ```bash
 crewai install
 ```
+
+Now navigate in the software_engineering_team directory:
+```{bash}
+cd software_engineering_team 
+```
+
 ### Customizing
 
 **Add your `OPENAI_API_KEY` into the `.env` file**
@@ -33,6 +39,13 @@ To kickstart your crew of AI agents and begin task execution, run this from the 
 
 ```bash
 $ crewai run
+```
+
+To run the gradient app created by the agentic workflow, run the command:
+```{py}
+cd output
+uv add gradio
+uv run app.py
 ```
 
 This command initializes the software_engineering_team Crew, assembling the agents and assigning them tasks as defined in your configuration.

@@ -5,7 +5,7 @@ import warnings
 import os
 from datetime import datetime
 
-from engineering_team.crew import EngineeringTeam
+from software_engineering_team.crew import EngineeringTeam
 
 warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
 
