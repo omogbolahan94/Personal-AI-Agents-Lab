@@ -34,11 +34,13 @@ nest_asyncio.apply()
 async_browser =  create_async_playwright_browser(headless=False) 
 toolkit = PlayWrightBrowserToolkit.from_browser(async_browser=async_browser)
 tools = toolkit.get_tools()
+# print(tools)
 
 # create a dictionary for each tools
 tool_dict = {tool.name:tool for tool in tools}
-print(tool_dict.keys())
+# print(tool_dict.keys())
 
+#  <<<<<<<<<<<<<to run the playwright tools >>>>>>>>>>>>>>>>>>>>>>>>>>
 # using the tools that navigate the browser and extract text
 async def playwright_tools():
     # navigate internet tool
@@ -47,15 +49,15 @@ async def playwright_tools():
         "url": "https://www.cnn.com/", 
         # "timeout": 120000,  # 60s before playwright timeout
         "wait_until": "commit"
-        })  
+    })  
 
     # extract text tool
     extract_text_tool = tool_dict.get("extract_text")
     text = await extract_text_tool.arun({})
-    print(textwrap.fill(text))
+    text = textwrap.fill(text)
+    return text
 
 
-#  <<<<<<<<<<<<<to run the playwright tools >>>>>>>>>>>>>>>>>>>>>>>>>>
 # asyncio.run(playwright_tools())
 
 # <<<<<<<<<<<<<<<<<<<<<< OTHER TOOLS >>>>>>>>>>>>>>>>>>>>>>>>
@@ -88,6 +90,7 @@ tool_push = Tool(
 
 # chain all the playwright tools together with push_tool: we are not using serper tool here
 all_tools = tools + [tool_push]
+# all_tools = [tool_dict.get("navigate_browser"), tool_dict.get("extract_text"), tool_push]
 
 # <<<<<<<<<<<<<<<<<<<<<< AGENT WORKFLOW >>>>>>>>>>>>>>>>>>>>>>>>
 # define state
@@ -99,9 +102,13 @@ class State(TypedDict):
 llm = ChatOpenAI(model="gpt-4o-mini")
 llm_with_tools = llm.bind_tools(all_tools)
 
+# test the LLM that is bound with a tool
+# query = """Check online. What is the current conversion of doller to naira. 
+#            Send me the notifiation of the extracted text"""
+# print(llm_with_tools.invoke(query))
 
 def chatbot(state: State):
-    result = llm_with_tools.invoke(state["messages"])  # LLM outpout: dict with role and content key
+    result = llm_with_tools.invoke(state["messages"])  # LLM can invoke: a string or dict with role and content key
     return {"messages": [result]}
 
 
