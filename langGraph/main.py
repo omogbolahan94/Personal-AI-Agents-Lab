@@ -7,6 +7,7 @@ import gradio as gr
 from langgraph.graph import StateGraph
 from langgraph.graph.message import add_messages
 from langchain_openai import ChatOpenAI
+from langgraph.checkpoint.memory import MemorySaver
 
 from langgraph.prebuilt import ToolNode, tools_condition
 from langchain_community.utilities import GoogleSerperAPIWrapper
@@ -24,6 +25,8 @@ from langchain_community.agent_toolkits import PlayWrightBrowserToolkit
 from langchain_community.tools.playwright.utils import create_async_playwright_browser
 import textwrap
 
+load_dotenv()
+
 # Running a nested eventloop (since python async code only allows for one "event loop" processing aynchronous events)
 nest_asyncio.apply()
 
@@ -37,7 +40,7 @@ tool_dict = {tool.name:tool for tool in tools}
 print(tool_dict.keys())
 
 # using the tools that navigate the browser and extract text
-async def main_all_tools():
+async def playwright_tools():
     # navigate internet tool
     navigate_tool = tool_dict.get("navigate_browser")    
     await navigate_tool.arun({
@@ -53,10 +56,10 @@ async def main_all_tools():
 
 
 #  <<<<<<<<<<<<<to run the playwright tools >>>>>>>>>>>>>>>>>>>>>>>>>>
-# asyncio.run(main_all_tools())
+# asyncio.run(playwright_tools())
 
 # <<<<<<<<<<<<<<<<<<<<<< OTHER TOOLS >>>>>>>>>>>>>>>>>>>>>>>>
-# Built-in serper tool for google web search
+# Built-in serper tool for google web search: but ware not using it here 
 # serper = GoogleSerperAPIWrapper()
 
 # tool_search =Tool(
@@ -98,7 +101,8 @@ llm_with_tools = llm.bind_tools(all_tools)
 
 
 def chatbot(state: State):
-    return {"messages": [llm_with_tools.invoke(state["messages"])]}
+    result = llm_with_tools.invoke(state["messages"])  # LLM outpout: dict with role and content key
+    return {"messages": [result]}
 
 
 graph_builder = StateGraph(State)
@@ -108,6 +112,16 @@ graph_builder.add_conditional_edges( "chatbot", tools_condition, "tools")
 graph_builder.add_edge("tools", "chatbot")
 graph_builder.add_edge(START, "chatbot")
 
+# set up memory
 memory = MemorySaver()
 graph = graph_builder.compile(checkpointer=memory)
-display(Image(graph.get_graph().draw_mermaid_png()))
+
+config = {"configurable": {"thread_id": "10"}}
+
+
+async def chat(user_input: str, history):
+    result = await graph.ainvoke({"messages": [{"role": "user", "content": user_input}]}, config=config)
+    return result["messages"][-1].content
+
+
+gr.ChatInterface(chat, type="messages").launch()
