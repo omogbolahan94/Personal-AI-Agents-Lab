@@ -7,6 +7,7 @@ import gradio as gr
 from langgraph.graph import StateGraph
 from langgraph.graph.message import add_messages
 from langchain_openai import ChatOpenAI
+from langgraph.prebuilt import create_react_agent
 from langgraph.checkpoint.memory import MemorySaver
 
 from langgraph.prebuilt import ToolNode, tools_condition
@@ -90,7 +91,6 @@ tool_push = Tool(
 
 # chain all the playwright tools together with push_tool: we are not using serper tool here
 all_tools = tools + [tool_push]
-# all_tools = [tool_dict.get("navigate_browser"), tool_dict.get("extract_text"), tool_push]
 
 # <<<<<<<<<<<<<<<<<<<<<< AGENT WORKFLOW >>>>>>>>>>>>>>>>>>>>>>>>
 # define state
@@ -100,16 +100,22 @@ class State(TypedDict):
 
 # chain all tools with LLM 
 llm = ChatOpenAI(model="gpt-4o-mini")
-llm_with_tools = llm.bind_tools(all_tools)
+llm_with_tools = create_react_agent(model=llm, tools=all_tools)
 
-# test the LLM that is bound with a tool
-# query = """Check online. What is the current conversion of doller to naira. 
-#            Send me the notifiation of the extracted text"""
-# print(llm_with_tools.invoke(query))
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< TESTING THE create_react_agent >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# query = """Check online. What is the current conversion of doller to nigeria naira. Send me the notifiation of the conversion"""
+# agent_chain = create_react_agent(model=llm, tools=all_tools) 
+# result = asyncio.run(agent_chain.ainvoke({"messages": [{"role": "user", "content": query}]})) # the code below also works
+# result = asyncio.run(agent_chain.ainvoke({"messages": [("user", query)]}))
+# print(result["messages"][-1].content)
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-def chatbot(state: State):
-    result = llm_with_tools.invoke(state["messages"])  # LLM can invoke: a string or dict with role and content key
-    return {"messages": [result]}
+async def chatbot(state: State):
+    result = await llm_with_tools.ainvoke(state) 
+    print(result)
+    print("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+    return result  # dict of message key and and values of list of Human inout and AI response 
+# .venv/Scripts/python langgraph/main.py
 
 
 graph_builder = StateGraph(State)
@@ -123,12 +129,14 @@ graph_builder.add_edge(START, "chatbot")
 memory = MemorySaver()
 graph = graph_builder.compile(checkpointer=memory)
 
+# configure thread
 config = {"configurable": {"thread_id": "10"}}
 
 
 async def chat(user_input: str, history):
-    result = await graph.ainvoke({"messages": [{"role": "user", "content": user_input}]}, config=config)
-    return result["messages"][-1].content
+    state_message = [{"role": "user", "content": user_input}]
+    result = await graph.ainvoke({"messages": state_message}, config=config)
+    return result["messages"][-1].content   # AI response
 
 
 gr.ChatInterface(chat, type="messages").launch()
